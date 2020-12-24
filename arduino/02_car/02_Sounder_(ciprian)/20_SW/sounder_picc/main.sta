@@ -1,0 +1,50 @@
+
+ROM used: 104 (14%)
+          104 (14%) including unused fragments
+
+          0 Average locations per line
+          6 Average locations per statement
+
+RAM used: 14 (27%) at main() level
+          14 (27%) worst case
+
+Stack used: 1 worst case (out of 7 total available)
+
+Lines Stmts  %   Files
+----- ----- ---  -----
+   93    17 100  main.c
+   17     0   0  main.h
+  214     0   0  C:\Program Files (x86)\00_Dev\PICC_4.114\devices\12F675.h
+    4     0   0  types.h
+   33     0   0  inm.h
+    5     0   0  sounder.h
+----- -----
+  366    17 Total
+
+Page ROM  %  RAM   Vol Diff  Functions:
+---- --- --- ---   --- ----  ----------
+0     11  11   0    82  2.8  RTCC_isr
+0      3   3   0     5  1.0  EXT_isr
+0      3   3   0     5  1.0  RA_isr
+0     25  24   0    80  2.1  MAIN
+
+Program metrics:
+    Functions               4
+    Statements              17
+    Comments                81
+    Volume (V)              243
+    Difficilty (D)          6.6
+    Effort to implement (E) 1597
+    Time to implement (T)   1 minutes
+    Est Delivered Bugs (B)  0
+    Cyclomatic Complexity   1
+    Maintainability (MI)    158
+
+ Segment     Used  Free
+-----------  ----  ----
+00000-00003     4  0  
+00004-0003D    58  0  
+0003E-002FF    42  664  
+
+
+

@@ -1,0 +1,34 @@
+_RETURN_
+C1OUT
+buzMode
+buzCnt
+buzState
+
+Project Directory:
+    D:\30_ELECTRONICs\80_WORK\80_Projects\02_Sounder_(ciprian)\20_SW\sounder_picc\
+
+Project Files:
+    sounder.c
+    main.h
+    C:\Program Files (x86)\00_Dev\PICC_4.114\devices\12F675.h
+    sounder.h
+    inm.h
+
+Units:
+    D:\30_ELECTRONICs\80_WORK\80_Projects\02_Sounder_(ciprian)\20_SW\sounder_picc\sounder (main)
+
+Compiler Settings:
+    Processor:      PIC12F675
+    Pointer Size:   8
+    ADC Range:      0-255
+    Opt Level:      9
+    Short,Int,Long: UNSIGNED: 1,8,16
+    Float,Double:   32,32
+    ICD Provisions: Yes
+    Output file:    Relocatable
+
+Output Files:
+    Errors:      main.err
+    Ext Symbols: sounder.esym
+    Object:      sounder.o
+    Symbols:     sounder.osym

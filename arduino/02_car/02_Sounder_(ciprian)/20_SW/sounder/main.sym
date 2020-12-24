@@ -1,0 +1,98 @@
+004-005 @READ_PROGRAM_MEMORY8.P1
+019.6   C1OUT
+020     @SCRATCH
+021     @SCRATCH
+021     _RETURN_
+022     @SCRATCH
+023     @SCRATCH
+024     @INTERRUPT_AREA
+025     @INTERRUPT_AREA
+026     @INTERRUPT_AREA
+027     @INTERRUPT_AREA
+028     @INTERRUPT_AREA
+029     @INTERRUPT_AREA
+02A     @INTERRUPT_AREA
+02B     @INTERRUPT_AREA
+02C     buzMode
+02D     buzModeOld
+02E     buzState
+02F     buzCnt
+030     buzStep
+031     tmrAlarm
+032     tmrEv
+033     getSeatBeltState.state
+033     getKl15State.state
+033     getDoorState.state
+033     setBuzState.state
+033     getKeyInState.state
+033     getPosLightState.state
+033     buzzer.@SCRATCH1
+033     mainSounder.@SCRATCH1
+034     getDoorState.@SCRATCH1
+034     getKeyInState.@SCRATCH1
+034     getKl15State.@SCRATCH1
+034     getPosLightState.@SCRATCH1
+034     getSeatBeltState.@SCRATCH1
+09B-09C @READ_PROGRAM_MEMORY8.P1
+
+ROM Allocation:
+0089  getDoorState
+0095  getKeyInState
+00A1  getKl15State
+00DF  getPosLightState
+00C4  getSeatBeltState
+00AD  setBuzState
+003C  buzKeyIn
+004C  buzPos
+0062  buzBelt
+00F0  buzzer
+00B7  mainSounder
+0072  RTCC_isr
+007D  init
+0156  MAIN
+0156  @cinit
+
+
+User Memory space: 
+ FFFFFFFF-00000A  buzKeyIn
+ FFFFFFFF-000010  buzPos
+ FFFFFFFF-00000A  buzBelt
+
+User Memory space: 
+
+Project Directory:
+    D:\30_ELECTRONICs\80_WORK\80_Projects\02_Sounder_(ciprian)\20_SW\sounder\
+
+Project Files:
+    main.c
+    main.h
+    C:\Program Files (x86)\00_Dev\PICC_4.114\devices\12F675.h
+    types.h
+    inm.h
+    outc.h
+    sounder.h
+    inm.c
+    outc.c
+    sounder.c
+
+Units:
+    D:\30_ELECTRONICs\80_WORK\80_Projects\02_Sounder_(ciprian)\20_SW\sounder\main (main)
+
+Compiler Settings:
+    Processor:      PIC12F675
+    Pointer Size:   8
+    ADC Range:      0-255
+    Opt Level:      9
+    Short,Int,Long: UNSIGNED: 1,8,16
+    Float,Double:   32,32
+
+Output Files:
+    Errors:      main.err
+    Ext Symbols: main.esym
+    INHX8:       main.hex
+    Symbols:     main.sym
+    List:        main.lst
+    Debug/COFF:  main.cof
+    Project:     main.PJT
+    Call Tree:   main.tre
+    Statistics:  main.sta

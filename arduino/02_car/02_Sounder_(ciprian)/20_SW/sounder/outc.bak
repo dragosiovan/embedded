@@ -1,0 +1,18 @@
+
+
+
+
+void setBuzState(int state)
+{
+#if 0
+   if (state == ON)
+   {
+      output_high(PIN_A5); // turn LED on
+   }
+   else
+   {
+      output_low(PIN_A5); // turn LED on
+   }
+#endif
+   output_bit(PIN_OUT_BUZ, state);
+} /* setBuzState() */

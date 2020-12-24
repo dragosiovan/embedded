@@ -1,0 +1,119 @@
+CCS PCM C Compiler, Version 4.114, 93460303               15-Jan-15 00:11
+
+               Filename: D:\30_ELECTRONICs\80_WORK\80_Projects\02_Sounder_(ciprian)\20_SW\sounder\main.lst
+
+               ROM used: 63 words (1%)
+                         Largest free fragment is 2048
+               RAM used: 6 (2%) at main() level
+                         7 (2%) worst case
+               Stack:    1 locations
+
+*
+0000:  NOP
+0001:  MOVLW  00
+0002:  MOVWF  0A
+0003:  GOTO   018
+.................... #include <main.h> 
+.................... #include <16F877A.h> 
+.................... //////// Standard Header file for the PIC16F877A device //////////////// 
+.................... #device PIC16F877A 
+.................... #list 
+....................  
+.................... #device adc=8 
+....................  
+.................... #FUSES NOWDT                 	//No Watch Dog Timer 
+.................... #FUSES HS                    	//High speed Osc (> 4mhz for PCM/PCH) (>10mhz for PCD) 
+.................... #FUSES NOPUT                 	//No Power Up Timer 
+.................... #FUSES NOBROWNOUT            	//No brownout reset 
+.................... #FUSES NOLVP                 	//No low voltage prgming, B3(PIC16) or B5(PIC18) used for I/O 
+.................... #FUSES NOCPD                 	//No EE protection 
+.................... #FUSES NOWRT                 	//Program memory not write protected 
+.................... #FUSES NODEBUG               	//No Debug mode for ICD 
+.................... #FUSES NOPROTECT             	//Code not protected from reading 
+....................  
+.................... #use delay(clock=20000000) 
+0004:  MOVLW  22
+0005:  MOVWF  04
+0006:  BCF    03.7
+0007:  MOVF   00,W
+0008:  BTFSC  03.2
+0009:  GOTO   017
+000A:  MOVLW  06
+000B:  MOVWF  78
+000C:  CLRF   77
+000D:  DECFSZ 77,F
+000E:  GOTO   00D
+000F:  DECFSZ 78,F
+0010:  GOTO   00C
+0011:  MOVLW  7B
+0012:  MOVWF  77
+0013:  DECFSZ 77,F
+0014:  GOTO   013
+0015:  DECFSZ 00,F
+0016:  GOTO   00A
+0017:  RETURN
+.................... #define LED PIN_A0 
+.................... #define DELAY 1000 
+....................  
+....................  
+....................  
+....................  
+....................  
+.................... void main() 
+.................... { 
+0018:  CLRF   04
+0019:  BCF    03.7
+001A:  MOVLW  1F
+001B:  ANDWF  03,F
+001C:  BSF    03.5
+001D:  BSF    1F.0
+001E:  BSF    1F.1
+001F:  BSF    1F.2
+0020:  BCF    1F.3
+0021:  MOVLW  07
+0022:  MOVWF  1C
+....................  
+....................    setup_adc_ports(AN0); 
+0023:  BCF    1F.0
+0024:  BSF    1F.1
+0025:  BSF    1F.2
+0026:  BSF    1F.3
+....................  
+....................     //Example blinking LED program 
+....................     while(true){ 
+....................       output_low(LED); 
+0027:  BCF    05.0
+0028:  BCF    03.5
+0029:  BCF    05.0
+....................       delay_ms(DELAY); 
+002A:  MOVLW  04
+002B:  MOVWF  21
+002C:  MOVLW  FA
+002D:  MOVWF  22
+002E:  CALL   004
+002F:  DECFSZ 21,F
+0030:  GOTO   02C
+....................       output_high(LED); 
+0031:  BSF    03.5
+0032:  BCF    05.0
+0033:  BCF    03.5
+0034:  BSF    05.0
+....................       delay_ms(DELAY); 
+0035:  MOVLW  04
+0036:  MOVWF  21
+0037:  MOVLW  FA
+0038:  MOVWF  22
+0039:  CALL   004
+003A:  DECFSZ 21,F
+003B:  GOTO   037
+....................     } 
+003C:  BSF    03.5
+003D:  GOTO   027
+....................  
+.................... } 
+003E:  GOTO   03E
+
+Configuration Fuses:
+   Word  1: 373A   HS NOWDT NOPUT NOBROWNOUT NOLVP NOCPD NOWRT DEBUG NOPROTECT
+
+   Some fuses have been forced to be compatible with the ICD debugger.

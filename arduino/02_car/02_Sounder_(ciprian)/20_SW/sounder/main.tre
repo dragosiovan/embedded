@@ -1,0 +1,22 @@
+ÀÄmain
+   ÃÄMAIN  0/27  Ram=0
+   ³  ÃÄ??0??
+   ³  ÃÄinit  0/12  Ram=0
+   ³  ÀÄmainSounder  0/159  Ram=1
+   ³     ÃÄgetDoorState  0/12  Ram=2
+   ³     ÃÄgetKeyInState  0/12  Ram=2
+   ³     ÃÄgetKl15State  0/12  Ram=2
+   ³     ÃÄgetSeatBeltState  (Inline)  Ram=2
+   ³     ÃÄgetKl15State  0/12  Ram=2
+   ³     ÃÄgetDoorState  0/12  Ram=2
+   ³     ÃÄgetKeyInState  0/12  Ram=2
+   ³     ÃÄgetPosLightState  (Inline)  Ram=2
+   ³     ÀÄbuzzer  (Inline)  Ram=1
+   ³        ÃÄsetBuzState  0/10  Ram=1
+   ³        ÃÄ@const80  0/16  Ram=0
+   ³        ÃÄsetBuzState  0/10  Ram=1
+   ³        ÃÄ@const82  0/22  Ram=0
+   ³        ÃÄsetBuzState  0/10  Ram=1
+   ³        ÃÄ@const84  0/16  Ram=0
+   ³        ÀÄsetBuzState  0/10  Ram=1
+   ÀÄRTCC_isr  0/11  Ram=0

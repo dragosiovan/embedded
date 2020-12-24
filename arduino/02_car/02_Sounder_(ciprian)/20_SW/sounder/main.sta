@@ -1,0 +1,64 @@
+
+ROM used: 369 (36%)
+          369 (36%) including unused fragments
+
+          1 Average locations per line
+          3 Average locations per statement
+
+RAM used: 19 (30%) at main() level
+          21 (33%) worst case
+
+Stack used: 3 worst case (out of 8 total available)
+
+Lines Stmts  %   Files
+----- ----- ---  -----
+  100    16  14  main.c
+   15     0   0  main.h
+  214     0   0  C:\Program Files (x86)\00_Dev\PICC_4.114\devices\12F675.h
+    4     0   0  types.h
+   22     0   0  inm.h
+   11     0   0  outc.h
+    5     0   0  sounder.h
+   84    30  27  inm.c
+    9     1   1  outc.c
+  170    65  58  sounder.c
+----- -----
+  634   112 Total
+
+Page ROM  %  RAM   Vol Diff  Functions:
+---- --- --- ---   --- ----  ----------
+0     12   3   2   119  3.4  getDoorState
+0     12   3   2   119  3.4  getKeyInState
+0     12   3   2   119  3.4  getKl15State
+ Inline        2   119  3.4  getPosLightState
+ Inline        2   119  3.4  getSeatBeltState
+0     10   3   1    37  1.1  setBuzState
+0     16   4   0   291  3.6  @const80
+0     22   6   0   892  8.7  @const82
+0     16   4   0    31  1.7  @const84
+ Inline        1  1289  8.8  buzzer
+0    159  43   1   405  3.7  mainSounder
+0     11   3   0    93  2.9  RTCC_isr
+0     12   3   0    88  1.7  init
+0     27   7   0    86  2.3  MAIN
+
+Program metrics:
+    Functions               14
+    Statements              112
+    Comments                107
+    Volume (V)              6081
+    Difficilty (D)          52.8
+    Effort to implement (E) 321253
+    Time to implement (T)   4 hours, 57 minutes
+    Est Delivered Bugs (B)  2
+    Cyclomatic Complexity   38
+    Maintainability (MI)    60
+
+ Segment     Used  Free
+-----------  ----  ----
+00000-00003     4  0  
+00004-00035    50  0  
+00036-003FF   315  655  
+
+
+

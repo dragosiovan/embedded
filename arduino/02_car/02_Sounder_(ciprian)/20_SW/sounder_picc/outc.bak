@@ -1,0 +1,8 @@
+
+
+#include <main.h>
+#include <outc.h>
+
+
+
+output_high(PIN_A5); // turn LED on

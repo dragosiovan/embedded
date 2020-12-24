@@ -1,0 +1,48 @@
+004-005 @READ_PROGRAM_MEMORY8.P1
+019.6   C1OUT
+020     @SCRATCH
+021     @SCRATCH
+022     @SCRATCH
+023     @SCRATCH
+024     @INTERRUPT_AREA
+025     @INTERRUPT_AREA
+026     @INTERRUPT_AREA
+027     @INTERRUPT_AREA
+028     @INTERRUPT_AREA
+029     @INTERRUPT_AREA
+02A     @INTERRUPT_AREA
+02B     @INTERRUPT_AREA
+09B-09C @READ_PROGRAM_MEMORY8.P1
+
+ROM Allocation:
+
+
+User Memory space: 
+
+User Memory space: 
+
+Project Directory:
+    D:\30_ELECTRONICs\80_WORK\80_Projects\02_Sounder_(ciprian)\20_SW\sounder\
+
+Project Files:
+    sounder.c
+    main.h
+    C:\Program Files (x86)\00_Dev\PICC_4.114\devices\12F675.h
+    sounder.h
+    inm.h
+
+Units:
+    D:\30_ELECTRONICs\80_WORK\80_Projects\02_Sounder_(ciprian)\20_SW\sounder\sounder (main)
+
+Compiler Settings:
+    Processor:      PIC12F675
+    Pointer Size:   8
+    ADC Range:      0-255
+    Opt Level:      9
+    Short,Int,Long: UNSIGNED: 1,8,16
+    Float,Double:   32,32
+
+Output Files:
+    Errors:      sounder.err
+    Ext Symbols: sounder.esym
+    Symbols:     sounder.sym

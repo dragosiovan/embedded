@@ -1,0 +1,64 @@
+004-005 @READ_PROGRAM_MEMORY8.P1
+019.6   C1OUT
+020     @SCRATCH
+021     @SCRATCH
+021     _RETURN_
+022     @SCRATCH
+023     @SCRATCH
+024     @INTERRUPT_AREA
+025     @INTERRUPT_AREA
+026     @INTERRUPT_AREA
+027     @INTERRUPT_AREA
+028     @INTERRUPT_AREA
+029     @INTERRUPT_AREA
+02A     @INTERRUPT_AREA
+02B     @INTERRUPT_AREA
+02C     tmrAlarm
+02D     tmrEv
+09B-09C @READ_PROGRAM_MEMORY8.P1
+
+ROM Allocation:
+003E  RTCC_isr
+0049  EXT_isr
+004C  RA_isr
+004F  MAIN
+004F  @cinit
+
+
+User Memory space: 
+
+User Memory space: 
+
+Project Directory:
+    D:\30_ELECTRONICs\80_WORK\80_Projects\02_Sounder_(ciprian)\20_SW\sounder_picc\
+
+Project Files:
+    main.c
+    main.h
+    C:\Program Files (x86)\00_Dev\PICC_4.114\devices\12F675.h
+    types.h
+    inm.h
+    sounder.h
+
+Units:
+    D:\30_ELECTRONICs\80_WORK\80_Projects\02_Sounder_(ciprian)\20_SW\sounder_picc\main (main)
+
+Compiler Settings:
+    Processor:      PIC12F675
+    Pointer Size:   8
+    ADC Range:      0-255
+    Opt Level:      9
+    Short,Int,Long: UNSIGNED: 1,8,16
+    Float,Double:   32,32
+    ICD Provisions: Yes
+
+Output Files:
+    Errors:      main.err
+    Ext Symbols: main.esym
+    INHX8:       main.hex
+    Symbols:     main.sym
+    List:        main.lst
+    Debug/COFF:  main.cof
+    Project:     main.PJT
+    Call Tree:   main.tre
+    Statistics:  main.sta

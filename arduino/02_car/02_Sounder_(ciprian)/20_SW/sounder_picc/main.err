@@ -1,0 +1,7 @@
+D:\30_ELECTRONICs\80_WORK\80_Projects\02_Sounder_(ciprian)\20_SW\sounder_picc\outc.o ===>  0 Errors,  0 Warnings.
+D:\30_ELECTRONICs\80_WORK\80_Projects\02_Sounder_(ciprian)\20_SW\sounder_picc\inm.o ===>  0 Errors,  0 Warnings.
+>>> Warning 202 "sounder.c" Line 12(12,18): Variable never used:   buzCnt
+>>> Warning 202 "sounder.c" Line 13(14,22): Variable never used:   buzState
+D:\30_ELECTRONICs\80_WORK\80_Projects\02_Sounder_(ciprian)\20_SW\sounder_picc\sounder.o ===>  0 Errors,  2 Warnings.
+*** Error 12 "main.c" Line 78(7,8): Undefined identifier  -- buzzer
+D:\30_ELECTRONICs\80_WORK\80_Projects\02_Sounder_(ciprian)\20_SW\sounder_picc\main.o ===>  1 Errors,  0 Warnings.

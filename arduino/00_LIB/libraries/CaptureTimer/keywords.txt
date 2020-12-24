@@ -1,0 +1,34 @@
+#######################################
+# Syntax Coloring Map For CaptureTimer
+#######################################
+
+#######################################
+# Datatypes (KEYWORD1)
+#######################################
+CaptureTimer	KEYWORD1
+
+#######################################
+# Methods and Functions (KEYWORD2)
+#######################################
+initCapTicks	KEYWORD2
+initCapTime	KEYWORD2
+setPeriod	KEYWORD2
+setFilterSpeed	KEYWORD2
+perStretch	KEYWORD2
+startTickCapture	KEYWORD2
+getTickCapture	KEYWORD2
+getTicks	KEYWORD2
+getScaledTicks	KEYWORD2
+getFreq	KEYWORD2
+getPeriod	KEYWORD2
+isTimeDataReady	KEYWORD2
+isTicksDataReady	KEYWORD2
+xgetTicks	KEYWORD2
+
+#######################################
+# Instances (KEYWORD2)
+#######################################
+
+#######################################
+# Constants (LITERAL1)
+#######################################
