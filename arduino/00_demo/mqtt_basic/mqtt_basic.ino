@@ -15,6 +15,8 @@
  
 */
 
+#include "C:\work\settings.h"
+
 #include <SPI.h>
 //#include <Ethernet.h>
 #include <ESP8266WiFi.h>
@@ -24,10 +26,8 @@
 //byte mac[]    = {  0xDE, 0xED, 0xBA, 0xFE, 0xFE, 0xED };
 //IPAddress ip(172, 16, 0, 100);
 IPAddress server(10,0,0,172);
-const char * ssid     = "IT6_r2";
-const char * password = "dejuwe76";
-
-
+const char * ssid     = WIFI_SSID;
+const char * password = WIFI_PASS;
 
 
 

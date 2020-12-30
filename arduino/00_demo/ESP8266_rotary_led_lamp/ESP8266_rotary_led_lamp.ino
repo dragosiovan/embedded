@@ -1,3 +1,8 @@
+
+
+#include "C:\work\settings.h"
+
+
 #include <ESP8266WiFi.h>
 #include <Encoder.h>
 
@@ -24,8 +29,8 @@ typedef enum
 } WifiState;
 
 /************************* WiFi Access Point *********************************/
-const char * ssid     = "embedded";
-const char * password = "82668266";
+const char * ssid     = WIFI_SSID;
+const char * password = WIFI_PASS;
 
 WifiState wifiState = WIFI_ST_NA;
 

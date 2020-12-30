@@ -7,13 +7,14 @@
  *  below. Or just customize this script to talk to other HTTP servers.
  *
  */
+#include "C:\work\settings.h"
 
 #include <ESP8266WiFi.h>
 #include <PubSubClient.h>
 
 // WIFI
-const char * ssid     = "IT6_r2";
-const char * password = "dejuwe76";
+const char * ssid     = WIFI_SSID;
+const char * password = WIFI_PASS;
 String hostName = "10.0.0.192";
 
 // MQTT
@@ -167,9 +168,3 @@ void loop()
   
   
 }
-
-
-
-
-
-
