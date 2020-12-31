@@ -139,7 +139,6 @@ int usDist;      // variable for the distance measurement
 
 void setup() 
 {
-  // put your setup code here, to run once:
   Serial.begin(115200); // serial
 
   if (DBG_INIT)
@@ -168,10 +167,10 @@ void loop()
     return;
 
   // inputs 
-	readLightSensor();
-	readMotDet();
+  readLightSensor();
+  readMotDet();
 
-	// processing
+  // processing
   processSMLED();
   
   // output
@@ -230,9 +229,8 @@ void processSMLED()
           Serial.print("MOVE TO ON TIMEOUT: "); Serial.print(timeNow); Serial.print("-"); Serial.println(stateSteps);
         }     
       }
-
-      break;
     }
+    break;
     
 
     /********************************** LED ON TIMEOUT ************************/
@@ -261,16 +259,13 @@ void processSMLED()
           Serial.print("MOVE TO FADE IDLE: "); Serial.print(timeNow); Serial.print("-"); Serial.println(stateSteps);
         }     
       }
-      
-      break;
     }
+    break;
     
 
     /********************************** LED FADE to IDLE **************************/
     case (LED_STATE_FAD_IDLE):
     {
-      uint16_t cmpLed;
-      
       if (motDet)
       {
         ledState = LED_STATE_FAD_ON; // FADE IN back to ON
@@ -312,9 +307,8 @@ void processSMLED()
           Serial.print("MOVE TO IDLE: "); Serial.print(timeNow); Serial.print("-"); Serial.print(stateSteps); Serial.print("- outLEDper:"); Serial.println(outLEDper);
         }      
       }
-
-      break;
     }
+    break;
 
 
     /********************************** LED IDLE **************************/
@@ -324,13 +318,17 @@ void processSMLED()
     {
       if (motDet)
       {
-        // TODO
-
         ledState = LED_STATE_FAD_ON; // FADE IN back to ON
-        Serial.print("switch to FADEIN from IDLE:"); Serial.println(stateSteps);
+        if (DBG_STATE)
+        {
+          Serial.print("switch to FADEIN from IDLE:"); Serial.println(stateSteps);
+        }
         stateSteps = map(outLEDper, 0, LED_PER_MAX, LED_FADE_ON_STEPS, 0); // recalculate corresponding for FADEIN duration, FADE IN back to ON
-        
-        Serial.print("MOVE to FADE IN in steps: "); Serial.println(stateSteps);
+
+        if (DBG_STATE)
+        {
+          Serial.print("MOVE to FADE IN in steps: "); Serial.println(stateSteps);
+        }
         break;
       }
       // fade from 100% -> 0%
@@ -352,13 +350,12 @@ void processSMLED()
       
       outLEDper = LED_PER_IDLE;
 
-        if (DBG_STATE_EXT)
-        {
-          Serial.print("LED_STATE_IDLE: "); Serial.print(stateSteps); Serial.print(" LED: "); Serial.println(outLEDper);
-        }
-      
-      break;
+      if (DBG_STATE_EXT)
+      {
+        Serial.print("LED_STATE_IDLE: "); Serial.print(stateSteps); Serial.print(" LED: "); Serial.println(outLEDper);
+      }
     }
+    break;
     
 
     /********************************** LED FADE OFF **************************/
@@ -368,9 +365,15 @@ void processSMLED()
       if (motDet)
       {
         ledState = LED_STATE_FAD_ON; // FADE IN back to ON
-        Serial.print("switch to FADEIN from FADE OFF:"); Serial.print(stateSteps);
+        if (DBG_STATE)
+        {
+          Serial.print("switch to FADEIN from FADE OFF:"); Serial.print(stateSteps);
+        }
         stateSteps = map(outLEDper, 0, LED_PER_MAX, LED_FADE_ON_STEPS, 0); // recalculate corresponding for FADEIN duration, FADE IN back to ON
-        Serial.print(", to FADEOUT:"); Serial.println(stateSteps);
+        if (DBG_STATE)
+        {
+          Serial.print(", to FADEOUT:"); Serial.println(stateSteps);
+        }
         break;
       }
       // fade from 100% -> 0%
@@ -395,9 +398,8 @@ void processSMLED()
       {
         Serial.print("LED_STATE_FAD_OFF: "); Serial.print(stateSteps); Serial.print(" LED: "); Serial.println(outLEDper);
       }
-
-      break;
     }
+    break;
 
        
     default: 
@@ -486,7 +488,6 @@ void writeLED()
 {
   uint32_t val;
 
-  //val = (LED_PWM_MAX * outLEDper) / PER_MAX;
   val = map(outLEDper, 0, PER_MAX, 0, LED_PWM_MAX);
 
 #if !OUTPUT_NEG
@@ -498,7 +499,9 @@ void writeLED()
 
   if (DBG_PLOT_OUT_LED)
   {
-    Serial.print(" OUTper:"); Serial.print(outLEDper); Serial.print(" LEDper:"); Serial.print(outLEDper*100/PER_MAX); Serial.print(", PWMout:"); Serial.println(outLED);
+    Serial.print(" OUTper:"); Serial.print(outLEDper);
+    Serial.print(" LEDper:"); Serial.print(outLEDper*100/PER_MAX);
+    Serial.print(", PWMout:"); Serial.println(outLED);
   }
 
   outLED = val;
