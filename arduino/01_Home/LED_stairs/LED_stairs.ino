@@ -1,18 +1,36 @@
 
 
+#define DBG_F_PLOT_OUT_LED    B00000001
+#define DBG_F_PLOT_IN_DIST    B00000010
 
-#define DBG_F_STATE       B00000001
-#define DBG_F_STATE_EXT   B00000010
-#define DBG_F_OUT_LED     B00000100
-uint8_t dbgVal = 0 
-| DBG_F_STATE
-| DBG_F_STATE_EXT
-| DBG_F_OUT_LED
+#define DBG_PLOT_OUT_LED      (dbgPlot & DBG_F_PLOT_OUT_LED)
+#define DBG_PLOT_IN_DIST      (dbgPlot & DBG_F_PLOT_IN_DIST)
+
+uint8_t dbgPlot = 0
+| DBG_F_PLOT_OUT_LED
+//| DBG_F_PLOT_IN_DIST
 | 0;
 
-#define DBG_STATE         (dbgVal & DBG_F_STATE)
-#define DBG_STATE_EXT     (dbgVal & DBG_F_STATE_EXT)
-#define DBG_OUT_LED       (dbgVal & DBG_F_OUT_LED)
+
+#define DBG_F_INIT        B00000001
+#define DBG_F_STATE       B00000010
+#define DBG_F_STATE_EXT   B00000100
+#define DBG_F_OUT_LED     B00001000
+
+#define DBG_NOT_PLOT      (dbgPlot == 0) // plot disabled
+
+#define DBG_INIT          ((DBG_NOT_PLOT) && (dbgVal & DBG_F_INIT))
+#define DBG_STATE         ((DBG_NOT_PLOT) && (dbgVal & DBG_F_STATE))
+#define DBG_STATE_EXT     ((DBG_NOT_PLOT) && (dbgVal & DBG_F_STATE_EXT))
+#define DBG_OUT_LED       ((DBG_NOT_PLOT) && (dbgVal & DBG_F_OUT_LED))
+
+uint8_t dbgVal = 0 
+| DBG_F_INIT
+| DBG_F_STATE
+//| DBG_F_STATE_EXT
+//| DBG_F_OUT_LED
+| 0;
+
 
 
 #define DEBUG1  1
@@ -36,11 +54,11 @@ uint8_t dbgVal = 0
 #define LED_PWM_MAX         255         // PWM 100%
 #define PER_MAX             1000
 
-#define LED_PER_MAX_100     50 // %
-#define LED_PER_IDLE_100    10 // %
+#define LED_PER_MAX_100     100 // %
+#define LED_PER_IDLE_100    5 // %
 
-#define LED_PER_MAX         (50*PER_MAX/100)          // /PER %
-#define LED_PER_IDLE        (10*PER_MAX/100)          // /PER %
+#define LED_PER_MAX         (50*(PER_MAX/100))          // /PER %
+#define LED_PER_IDLE        (10*(PER_MAX/100))          // /PER %
 
 
 
@@ -122,14 +140,21 @@ int usDist;      // variable for the distance measurement
 void setup() 
 {
   // put your setup code here, to run once:
-  Serial.begin(115200); // serial 
-  Serial.println("Initializing..."); 
+  Serial.begin(115200); // serial
+
+  if (DBG_INIT)
+  {
+    Serial.println("Initializing...");
+  }
   
   setupLED();
   setupLightSensor();
   setupMotDet();
   
-  Serial.println("Initialization done.");
+  if (DBG_INIT)
+  {
+    Serial.println("Initialization done.");
+  }
 }
 
 
@@ -153,97 +178,6 @@ void loop()
   writeLED();
 }
 
-
-
-/******************************************************************************/
-/********************************** INPUTS ************************************/
-
-
-void readLightSensor()
-{
-  
-}
-
-void readMotDet()
-{
-  motDet1 = false;
-  motDet2 = false;
-  
-#if USE_MOT_DET_1  
-  if (HIGH == digitalRead(PIN_IN_MOT_DET_1))
-  {
-    motDet1 = true;
-  }
-#endif
-  
-
-#if USE_MOT_DET_2
-#if DBG_LOG  
-  Serial.print("Pulse timeout:"); Serial.println(US_PULSE_TOUT);
-#endif 
- 
-  // Sets the trigPin HIGH (ACTIVE) for 10 microseconds
-  digitalWrite(PIN_US_TRIG, HIGH);
-  delayMicroseconds(10);
-  digitalWrite(PIN_US_TRIG, LOW);
-  
-  // Reads the echoPin, returns the sound wave travel time in microseconds
-  usPulseDur = pulseIn(PIN_US_ECHO, HIGH, US_PULSE_TOUT);
-
-  if (usPulseDur > 0)
-  {
-    // Calculating the distance
-    usDist = usPulseDur * US_SPEED / 2; // Speed of sound wave divided by 2 (go and back)
-
-    if (usDist < US_DET_DIST)
-    {
-      motDet2 = true;
-#if DBG_LOG
-      Serial.println("Mot det 2");
-#endif      
-    }
-  }
-#if DBG_LOG  
-  // Displays the distance on the Serial Monitor
-  Serial.print("Distance: ");
-  Serial.print(usDist);
-  Serial.println(" cm");
-#endif  
-
-#endif // USE_MOT_DET_2
-
-
-#if DEBUG1
-  char ch;
-  if (Serial.available() > 0)
-    ch = Serial.read();
-    
-  if (ch == '1')
-  {
-    Serial.println("Mot det 1");
-    motDet1 = true;
-  }
-  
-  if (ch == '2')
-  {
-    Serial.println("Mot det 2");
-    motDet2 = true;
-  }
-#endif
-  
-  if (motDet1 || motDet2)
-  {
-#if DBG_LOG    
-    Serial.println("Mot det");
-#endif
-
-    motDet = true;
-  }
-  else
-  {
-    motDet = false;
-  }
-}
 
 
 /******************************************************************************/
@@ -346,8 +280,7 @@ void processSMLED()
           Serial.print("switch to FADEIN from FADE IDLE:"); Serial.print(stateSteps);
         }
         
-//        stateSteps = map(stateSteps, 0, LED_FADE_IDLE_STEPS, LED_FADE_ON_STEPS, 0); // recalculate corresponding for FADEIN duration, FADE IN back to ON
-        stateSteps = map(outLEDper, 0, PER_MAX, LED_FADE_ON_STEPS, 0); // recalculate corresponding for FADEIN duration, FADE IN back to ON
+        stateSteps = map(outLEDper, 0, LED_PER_MAX, LED_FADE_ON_STEPS, 0); // recalculate corresponding for FADEIN duration, FADE IN back to ON
 
         if (DBG_STATE)
         {
@@ -362,7 +295,6 @@ void processSMLED()
 
         outLEDper = getLedPer (stateSteps, 0, LED_FADE_IDLE_STEPS, LED_PER_IDLE, LED_PER_MAX);
       }
-
 
       if (DBG_STATE_EXT)
       {
@@ -396,8 +328,7 @@ void processSMLED()
 
         ledState = LED_STATE_FAD_ON; // FADE IN back to ON
         Serial.print("switch to FADEIN from IDLE:"); Serial.println(stateSteps);
-//        stateSteps = LED_FADE_IDLE_ON_STEPS; // recalculate corresponding for FADEIN duration, FADE IN back to ON
-        stateSteps = map(outLEDper, 0, PER_MAX, LED_FADE_ON_STEPS, 0); // recalculate corresponding for FADEIN duration, FADE IN back to ON
+        stateSteps = map(outLEDper, 0, LED_PER_MAX, LED_FADE_ON_STEPS, 0); // recalculate corresponding for FADEIN duration, FADE IN back to ON
         
         Serial.print("MOVE to FADE IN in steps: "); Serial.println(stateSteps);
         break;
@@ -438,11 +369,7 @@ void processSMLED()
       {
         ledState = LED_STATE_FAD_ON; // FADE IN back to ON
         Serial.print("switch to FADEIN from FADE OFF:"); Serial.print(stateSteps);
-//        stateSteps = map(stateSteps, 0, LED_FADE_IDLE_STEPS, LED_FADE_ON_STEPS, 0); // recalculate corresponding for FADEIN duration, FADE IN back to ON
-
-        stateSteps = map(outLEDper, 0, PER_MAX, LED_FADE_ON_STEPS, 0); // recalculate corresponding for FADEIN duration, FADE IN back to ON
-
-//        stateSteps = LED_FADE_OUT_STEPS - stateSteps;
+        stateSteps = map(outLEDper, 0, LED_PER_MAX, LED_FADE_ON_STEPS, 0); // recalculate corresponding for FADEIN duration, FADE IN back to ON
         Serial.print(", to FADEOUT:"); Serial.println(stateSteps);
         break;
       }
@@ -475,29 +402,6 @@ void processSMLED()
        
     default: 
       break;
-  }
-}
-
-
-/******************************************************************************/
-/********************************** OUTPUTS ***********************************/
-
-
-/******************************************************************************/
-void writeLED()
-{
-  outLED = ((uint32_t)(LED_PWM_MAX * outLEDper)) / PER_MAX;
-
-#if !OUTPUT_NEG
-#else
-  outLED = LED_PWM_MAX - outLED;
-#endif
-
-  analogWrite(PIN_OUT_LED, outLED);
-
-  if (DBG_OUT_LED)
-  {
-    Serial.print("++ writeLED: ["); Serial.print(outLEDper*100/PER_MAX); Serial.print("%]["); Serial.print(outLED);Serial.println("]");
   }
 }
 
@@ -557,17 +461,137 @@ bool isCycleTime(void)
 
 
 /******************************************************************************/
-uint32_t getLedPer(uint32_t val, uint32_t inL, uint32_t inH, uint32_t outL, uint32_t outH)
+uint32_t getLedPer(uint16_t val, uint16_t inL, uint16_t inH, uint16_t outL, uint16_t outH)
 {
   uint32_t per;
   
   per = map(val, inL, inH, outL, outH);
   
-#if 1 //DBG_LOG
-  Serial.print("getLedPer: ("); Serial.print(inL);Serial.print(":"); Serial.print(inH); Serial.print(")-(");
-  Serial.print(outL);Serial.print(":"); Serial.print(outH); Serial.print(")-");
-  Serial.println(val);
+#if DBG_LOG
+  Serial.print("        getLedPer: ("); Serial.print(val); Serial.print(")#(");
+  Serial.print(inL);Serial.print(":"); Serial.print(inH); Serial.print(")#(");
+  Serial.print(outL);Serial.print(":"); Serial.print(outH); Serial.print(")#");
+  Serial.println();
 #endif
 
   return per;
+}
+
+/******************************************************************************/
+/********************************** OUTPUTS ***********************************/
+
+
+/******************************************************************************/
+void writeLED()
+{
+  uint32_t val;
+
+  //val = (LED_PWM_MAX * outLEDper) / PER_MAX;
+  val = map(outLEDper, 0, PER_MAX, 0, LED_PWM_MAX);
+
+#if !OUTPUT_NEG
+#else
+  outLED = LED_PWM_MAX - outLED;
+#endif
+
+  analogWrite(PIN_OUT_LED, outLED);
+
+  if (DBG_PLOT_OUT_LED)
+  {
+    Serial.print(" OUTper:"); Serial.print(outLEDper); Serial.print(" LEDper:"); Serial.print(outLEDper*100/PER_MAX); Serial.print(", PWMout:"); Serial.println(outLED);
+  }
+
+  outLED = val;
+}
+
+
+/******************************************************************************/
+/********************************** INPUTS ************************************/
+
+
+/******************************************************************************/
+void readLightSensor()
+{
+
+}
+
+
+/******************************************************************************/
+void readMotDet()
+{
+  motDet1 = false;
+  motDet2 = false;
+
+#if USE_MOT_DET_1
+  if (HIGH == digitalRead(PIN_IN_MOT_DET_1))
+  {
+    motDet1 = true;
+  }
+#endif
+
+
+#if USE_MOT_DET_2
+#if DBG_LOG
+  Serial.print("Pulse timeout:"); Serial.println(US_PULSE_TOUT);
+#endif
+
+  // Sets the trigPin HIGH (ACTIVE) for 10 microseconds
+  digitalWrite(PIN_US_TRIG, HIGH);
+  delayMicroseconds(10);
+  digitalWrite(PIN_US_TRIG, LOW);
+
+  // Reads the echoPin, returns the sound wave travel time in microseconds
+  usPulseDur = pulseIn(PIN_US_ECHO, HIGH, US_PULSE_TOUT);
+
+  if (usPulseDur > 0)
+  {
+    // Calculating the distance
+    usDist = usPulseDur * US_SPEED / 2; // Speed of sound wave divided by 2 (go and back)
+
+    if (usDist < US_DET_DIST)
+    {
+      motDet2 = true;
+#if DBG_LOG
+      Serial.println("Mot det 2");
+#endif
+    }
+  }
+
+  if (DBG_PLOT_IN_DIST)
+  {
+    Serial.print("Dist(cm):"); Serial.print(usDist); Serial.println(" ");
+  }
+#endif // USE_MOT_DET_2
+
+
+#if DEBUG1
+  char ch;
+  if (Serial.available() > 0)
+    ch = Serial.read();
+
+  if (ch == '1')
+  {
+    Serial.println("Mot det 1");
+    motDet1 = true;
+  }
+
+  if (ch == '2')
+  {
+    Serial.println("Mot det 2");
+    motDet2 = true;
+  }
+#endif
+
+  if (motDet1 || motDet2)
+  {
+#if DBG_LOG
+    Serial.println("Mot det");
+#endif
+
+    motDet = true;
+  }
+  else
+  {
+    motDet = false;
+  }
 }
