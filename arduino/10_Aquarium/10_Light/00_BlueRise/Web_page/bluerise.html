@@ -1,0 +1,105 @@
+<!DOCTYPE HTML><html></html>
+<head>
+  <!  define meta data >
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <! define the style CSS of your page >
+  <style>
+    html {font-family: Arial; display: inline-block; text-align: center;}
+    h1 {font-size: 2.9rem;}
+    h2 {font-size: 2.1rem;}
+    p {font-size: 1.5rem;}
+    body {max-width: 400px; margin:0px auto; padding-bottom: 30px;}
+    .slider { -webkit-appearance: none; margin: 10px; width: 400px; height: 10px; border-radius: 5px; background: #F9a6de; outline: none; -webkit-transition: .5s; transition: opacity .2s;  margin-top: -5px; color: 0x5000aF;  box-shadow: -1px 0 0 1px #000000;}
+    .slider::-webkit-slider-thumb {-webkit-appearance: none; appearance: none; width: 25px; height: 25px; border-radius: 15px; background: #3F0F0F; cursor: pointer; margin-top: -5px; color: 0x4000aF;  box-shadow: -4px -2px 2 4px #F315f7;}
+    .slider::-moz-range-thumb { width: 40px; height: 40px; border-radius: 10px; background: #a74D4D; cursor: pointer; margin-top: -5px; color: 0x600FaF;  box-shadow: -3px 0 0 8px #13e5f7;} 
+  </style>
+</head>
+
+<body >
+
+
+  <! Edit the pages your heading 1 >
+  <! h1>Mish Mash Labs</h1>
+
+  <! Adding the logo here >
+  <! img src="https://yt3.ggpht.com/a/AATXAJxkbzn1yJWmRJRNOJ5uTRH4KDZxt761H4ADQIjz=s288-c-k-c0xffffffff-no-rj-mo">
+  
+  <! Edit the pages your heading 2 >
+  <! h2>ESP32 PWM Slider</h2>
+  
+  <h2>LED Brightness</h2>
+
+  <h2>Operation Mode</h1>
+
+    <form action="/action_page.php">
+        <p>Please select :</p>
+      	<input type="radio" id="Auto" name="op_mode" value="auto">
+      	<label for="Auto">Auto</label>
+        
+      	<input type="radio" id="Manual" name="op_mode" value="manual">
+      	<label for="Manual">Manual</label><br>
+      <br>  
+    
+      <input type="submit" value="Submit">
+    </form>
+    
+
+
+  
+
+
+
+  <table>
+        <colgroup>
+            <col span="2" style="background-color: #D6EEEE">
+        </colgroup>
+        <tr>
+            <th>Auto</th>
+            <th>Manual</th>
+        </tr>
+        <tr>
+
+        </tr>
+
+</table>
+
+  
+  <! displays the range of the slider 0 - 100 in steps of 1 >
+  <p>
+  	<input type="range" onchange="updateSliderPWM(this)" id="pwmSlider_UV" min="0" max="100" value="%SLIDERVALUE%" step="1" class="slider"> <span id="textSliderValue_UV">%SLIDERVALUE%</span> &#37
+  </p>
+  <p>
+  	<input type="range" onchange="updateSliderPWM(this)" id="pwmSlider_DeepBlue" min="0" max="100" value=20 step="1"> UV
+  </p>
+  <p>
+  	<input type="range" onchange="updateSliderPWM(this)" id="pwmSlider_DeepBlue" min="0" max="100" value=20 step="1"> VI
+  </p>
+  <p>
+  	<input type="range" onchange="updateSliderPWM(this)" id="pwmSlider_DeepBlue" min="0" max="100" value=20 step="1"> RB
+  </p>
+  <p>
+  	<input type="range" onchange="updateSliderPWM(this)" id="pwmSlider_DeepBlue" min="0" max="100" value=20 step="1"> IC
+  </p>
+  <p>
+  	<input type="range" onchange="updateSliderPWM(this)" id="pwmSlider_DeepBlue" min="0" max="100" value=20 step="1"> GR
+  </p>
+  <p>
+  	<input type="range" onchange="updateSliderPWM(this)" id="pwmSlider_DeepBlue" min="0" max="100" value=20 step="1"> RD
+  </p>
+  <p>
+  	<input type="range" onchange="updateSliderPWM(this)" id="pwmSlider_DeepBlue" min="0" max="100" value=20 step="1"> CW
+  </p>
+
+
+<script>
+function updateSliderPWM(element) {
+  var pwmSliderValue = document.getElementById("pwmSlider").value;
+  document.getElementById("textSliderValue").innerHTML = pwmSliderValue;
+  console.log(pwmSliderValue);
+  var httpRequest = new XMLHttpRequest();
+  httpRequest.open("GET", "/slider?value="+pwmSliderValue, true);
+  httpRequest.send();
+}
+</script>
+</body>
+</html>
